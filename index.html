@@ -1,0 +1,1652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Multimedia Solutions | NJ, NY, NYC Website Design, Development & Digital Marketing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #111118;
+    --surface2: #16161f;
+    --border: rgba(255,255,255,0.07);
+    --accent: #e8f040;
+    --accent2: #5b6cf0;
+    --text: #f0f0f5;
+    --text-muted: #7a7a90;
+    --text-dim: #3a3a50;
+    --white: #ffffff;
+    --font-display: 'Syne', sans-serif;
+    --font-body: 'DM Sans', sans-serif;
+    --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-in-out: cubic-bezier(0.76, 0, 0.24, 1);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ─── NOISE OVERLAY ─── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.4;
+  }
+
+  /* ─── SCROLLBAR ─── */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--accent2); border-radius: 2px; }
+
+  /* ─── HEADER ─── */
+  header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 900;
+    padding: 0 3rem;
+    height: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.4s ease, background 0.4s ease, backdrop-filter 0.4s ease;
+  }
+
+  header.scrolled {
+    background: rgba(10,10,15,0.85);
+    backdrop-filter: blur(16px);
+    border-color: var(--border);
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+  }
+
+  .logo img {
+    height: 36px;
+    width: auto;
+    filter: brightness(0) invert(1);
+  }
+
+  nav {
+    display: flex;
+    align-items: center;
+    gap: 2.5rem;
+  }
+
+  nav a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-family: var(--font-display);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    position: relative;
+    transition: color 0.2s ease;
+  }
+
+  nav a::after {
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--accent);
+    transition: width 0.3s var(--ease-out);
+  }
+
+  nav a:hover { color: var(--white); }
+  nav a:hover::after { width: 100%; }
+
+  .header-cta {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .btn-outline {
+    padding: 0.5rem 1.25rem;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text-muted);
+    font-family: var(--font-display);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 2px;
+    transition: all 0.25s ease;
+    cursor: pointer;
+  }
+
+  .btn-outline:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .btn-primary {
+    padding: 0.55rem 1.4rem;
+    background: var(--accent);
+    color: #0a0a0f;
+    font-family: var(--font-display);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 2px;
+    transition: all 0.25s ease;
+    cursor: pointer;
+  }
+
+  .btn-primary:hover {
+    background: var(--white);
+    transform: translateY(-1px);
+    box-shadow: 0 8px 24px rgba(232, 240, 64, 0.25);
+  }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 120px 3rem 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* background grid */
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+    background-size: 80px 80px;
+    mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%);
+  }
+
+  /* glow orbs */
+  .hero-orb1 {
+    position: absolute;
+    top: -20%;
+    right: -10%;
+    width: 700px;
+    height: 700px;
+    background: radial-gradient(circle, rgba(91,108,240,0.12) 0%, transparent 70%);
+    pointer-events: none;
+    animation: orb-float 8s ease-in-out infinite;
+  }
+
+  .hero-orb2 {
+    position: absolute;
+    bottom: -10%;
+    left: 10%;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(232,240,64,0.06) 0%, transparent 70%);
+    pointer-events: none;
+    animation: orb-float 10s ease-in-out infinite reverse;
+  }
+
+  @keyframes orb-float {
+    0%, 100% { transform: translateY(0px) scale(1); }
+    50% { transform: translateY(-30px) scale(1.05); }
+  }
+
+  .hero-inner {
+    position: relative;
+    max-width: 1300px;
+    margin: 0 auto;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.35rem 0.85rem;
+    background: rgba(232,240,64,0.08);
+    border: 1px solid rgba(232,240,64,0.2);
+    border-radius: 100px;
+    color: var(--accent);
+    font-family: var(--font-display);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fade-up 0.8s var(--ease-out) 0.1s forwards;
+  }
+
+  .hero-badge::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+    animation: pulse-dot 2s ease infinite;
+  }
+
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+  }
+
+  .hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.8rem, 5vw, 5rem);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: var(--white);
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fade-up 0.9s var(--ease-out) 0.2s forwards;
+  }
+
+  .hero-title em {
+    font-style: normal;
+    color: var(--accent);
+    position: relative;
+  }
+
+  .hero-title .year-badge {
+    display: inline-block;
+    background: var(--accent);
+    color: var(--bg);
+    font-size: 0.5em;
+    font-weight: 800;
+    padding: 0.15em 0.4em;
+    border-radius: 4px;
+    vertical-align: middle;
+    margin-right: 0.2em;
+    letter-spacing: 0;
+  }
+
+  .hero-sub {
+    font-size: 1.05rem;
+    color: var(--text-muted);
+    font-weight: 300;
+    line-height: 1.7;
+    max-width: 480px;
+    margin-bottom: 2.5rem;
+    opacity: 0;
+    animation: fade-up 0.9s var(--ease-out) 0.35s forwards;
+  }
+
+  .hero-actions {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    opacity: 0;
+    animation: fade-up 0.9s var(--ease-out) 0.5s forwards;
+  }
+
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.85rem 2rem;
+    background: var(--accent);
+    color: var(--bg);
+    font-family: var(--font-display);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 3px;
+    transition: all 0.3s var(--ease-out);
+  }
+
+  .hero-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 16px 40px rgba(232, 240, 64, 0.3);
+    background: var(--white);
+  }
+
+  .hero-cta svg { transition: transform 0.3s ease; }
+  .hero-cta:hover svg { transform: translateX(4px); }
+
+  .hero-link {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    transition: color 0.2s ease;
+  }
+
+  .hero-link:hover { color: var(--white); }
+
+  /* hero right panel */
+  .hero-visual {
+    position: relative;
+    opacity: 0;
+    animation: fade-left 1s var(--ease-out) 0.4s forwards;
+  }
+
+  .hero-stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .stat-card {
+    background: var(--surface);
+    padding: 2rem 1.75rem;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s ease;
+  }
+
+  .stat-card:hover { background: var(--surface2); }
+
+  .stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent2), var(--accent));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .stat-card:hover::before { opacity: 1; }
+
+  .stat-num {
+    font-family: var(--font-display);
+    font-size: 2.8rem;
+    font-weight: 800;
+    color: var(--white);
+    line-height: 1;
+    margin-bottom: 0.4rem;
+    letter-spacing: -0.03em;
+  }
+
+  .stat-num span { color: var(--accent); }
+
+  .stat-label {
+    font-size: 0.72rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  /* ─── TICKER ─── */
+  .ticker-wrap {
+    overflow: hidden;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    background: var(--surface);
+    padding: 0.85rem 0;
+  }
+
+  .ticker-track {
+    display: flex;
+    gap: 0;
+    animation: ticker 30s linear infinite;
+    width: max-content;
+  }
+
+  .ticker-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0 2.5rem;
+    white-space: nowrap;
+    font-family: var(--font-display);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+
+  .ticker-item strong { color: var(--accent); }
+
+  .ticker-dot {
+    width: 4px;
+    height: 4px;
+    background: var(--accent2);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  @keyframes ticker {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* ─── SECTIONS ─── */
+  section {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 7rem 3rem;
+  }
+
+  .section-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: var(--font-display);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.2rem;
+  }
+
+  .section-label::before {
+    content: '';
+    width: 20px;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 3.5vw, 3.2rem);
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    color: var(--white);
+    line-height: 1.1;
+  }
+
+  /* ─── ENABLERS (SERVICES) ─── */
+  .services-section {
+    padding-top: 7rem;
+    padding-bottom: 7rem;
+  }
+
+  .services-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 3.5rem;
+    gap: 2rem;
+  }
+
+  .services-header p {
+    max-width: 360px;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .service-card {
+    background: var(--surface);
+    padding: 2rem 1.75rem;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s ease;
+    group: true;
+  }
+
+  .service-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s var(--ease-out);
+  }
+
+  .service-card:hover { background: var(--surface2); }
+  .service-card:hover::after { transform: scaleX(1); }
+
+  .service-icon {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(91,108,240,0.1);
+    border-radius: 8px;
+    color: var(--accent2);
+    transition: background 0.3s ease;
+  }
+
+  .service-card:hover .service-icon {
+    background: rgba(232,240,64,0.1);
+    color: var(--accent);
+  }
+
+  .service-name {
+    font-family: var(--font-display);
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.3;
+    transition: color 0.2s ease;
+  }
+
+  .service-card:hover .service-name { color: var(--white); }
+
+  .service-arrow {
+    margin-top: auto;
+    color: var(--text-dim);
+    transition: color 0.2s ease, transform 0.3s ease;
+  }
+
+  .service-card:hover .service-arrow {
+    color: var(--accent);
+    transform: translate(4px, -4px);
+  }
+
+  /* ─── PILLARS ─── */
+  .pillars-section {
+    padding-top: 2rem;
+    padding-bottom: 7rem;
+  }
+
+  .pillars-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    margin-top: 3.5rem;
+  }
+
+  .pillar-card {
+    background: var(--surface);
+    padding: 3rem 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s ease;
+  }
+
+  .pillar-card:hover { background: var(--surface2); }
+
+  .pillar-keyword {
+    font-family: var(--font-display);
+    font-size: 3.5rem;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 1;
+  }
+
+  .pillar-keyword.creative { color: var(--accent); }
+  .pillar-keyword.versatile { color: var(--accent2); }
+  .pillar-keyword.grateful {
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .pillar-title {
+    font-family: var(--font-display);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  .pillar-desc {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+    flex-grow: 1;
+  }
+
+  .pillar-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-display);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.2s ease;
+    margin-top: 0.5rem;
+  }
+
+  .pillar-card:hover .pillar-link { color: var(--accent); }
+  .pillar-link svg { transition: transform 0.3s ease; }
+  .pillar-card:hover .pillar-link svg { transform: translateX(4px); }
+
+  /* ─── TESTIMONIAL ─── */
+  .testimonial-section {
+    padding: 0 3rem 7rem;
+    max-width: 1300px;
+    margin: 0 auto;
+  }
+
+  .testimonial-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 3.5rem 4rem;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 3rem;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .testimonial-card::before {
+    content: '"';
+    position: absolute;
+    top: -0.5rem;
+    left: 2rem;
+    font-family: var(--font-display);
+    font-size: 12rem;
+    font-weight: 800;
+    color: rgba(232,240,64,0.04);
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .testimonial-quote {
+    font-size: 1.15rem;
+    font-weight: 300;
+    line-height: 1.8;
+    color: var(--text);
+    font-style: italic;
+    position: relative;
+  }
+
+  .testimonial-author {
+    text-align: right;
+    flex-shrink: 0;
+    min-width: 200px;
+  }
+
+  .testimonial-name {
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 0.3rem;
+  }
+
+  .testimonial-role {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+  }
+
+  .testimonial-company {
+    display: inline-block;
+    margin-top: 0.75rem;
+    padding: 0.3rem 0.75rem;
+    background: rgba(91,108,240,0.1);
+    border: 1px solid rgba(91,108,240,0.2);
+    border-radius: 100px;
+    font-size: 0.68rem;
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent2);
+  }
+
+  /* ─── RECENT WORK ─── */
+  .work-section { padding-top: 2rem; padding-bottom: 7rem; }
+
+  .work-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 2.5rem;
+  }
+
+  .view-all {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-display);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .view-all:hover { color: var(--accent); }
+  .view-all svg { transition: transform 0.3s ease; }
+  .view-all:hover svg { transform: translateX(4px); }
+
+  .work-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  .work-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    transition: border-color 0.3s ease, transform 0.4s var(--ease-out);
+  }
+
+  .work-card:hover {
+    border-color: rgba(232,240,64,0.2);
+    transform: translateY(-4px);
+  }
+
+  .work-card-img {
+    width: 100%;
+    aspect-ratio: 16/9;
+    overflow: hidden;
+    background: var(--surface2);
+  }
+
+  .work-card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s var(--ease-out);
+    filter: saturate(0.8);
+  }
+
+  .work-card:hover .work-card-img img {
+    transform: scale(1.05);
+    filter: saturate(1);
+  }
+
+  .work-card-body {
+    padding: 1.5rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .work-tag {
+    font-family: var(--font-display);
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 0.5rem;
+  }
+
+  .work-title {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 1rem;
+    transition: color 0.2s ease;
+  }
+
+  .work-card:hover .work-title { color: var(--accent); }
+
+  .work-card-link {
+    margin-top: auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.75rem;
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    transition: color 0.2s ease;
+  }
+
+  .work-card:hover .work-card-link { color: var(--accent); }
+
+  /* ─── NEWS ─── */
+  .news-section { padding-top: 0; padding-bottom: 7rem; }
+
+  .news-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 2.5rem;
+  }
+
+  .news-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    text-decoration: none;
+    transition: border-color 0.3s ease, transform 0.4s var(--ease-out);
+  }
+
+  .news-card:hover {
+    border-color: rgba(91,108,240,0.3);
+    transform: translateY(-3px);
+  }
+
+  .news-card-img {
+    width: 100%;
+    aspect-ratio: 16/9;
+    overflow: hidden;
+    background: var(--surface2);
+  }
+
+  .news-card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s var(--ease-out), filter 0.4s ease;
+    filter: saturate(0.7);
+  }
+
+  .news-card:hover .news-card-img img {
+    transform: scale(1.05);
+    filter: saturate(1);
+  }
+
+  .news-card-body { padding: 1.5rem; }
+
+  .news-tag {
+    font-family: var(--font-display);
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent2);
+    margin-bottom: 0.5rem;
+  }
+
+  .news-title {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.3;
+    transition: color 0.2s ease;
+  }
+
+  .news-card:hover .news-title { color: var(--white); }
+
+  /* ─── CONNECT ─── */
+  .connect-wrap {
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    padding: 6rem 3rem;
+  }
+
+  .connect-inner {
+    max-width: 1300px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  .connect-text .section-title { margin-bottom: 1.25rem; }
+
+  .connect-text p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.7;
+    margin-bottom: 2rem;
+  }
+
+  .connect-visual {
+    display: flex;
+    justify-content: center;
+  }
+
+  .phone-mockup {
+    width: 200px;
+    height: 360px;
+    background: linear-gradient(160deg, var(--surface2) 0%, #0d0d18 100%);
+    border: 1px solid var(--border);
+    border-radius: 32px;
+    position: relative;
+    box-shadow: 0 40px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.05);
+    overflow: hidden;
+    animation: phone-float 5s ease-in-out infinite;
+  }
+
+  @keyframes phone-float {
+    0%, 100% { transform: translateY(0) rotate(-2deg); }
+    50% { transform: translateY(-12px) rotate(-2deg); }
+  }
+
+  .phone-mockup::before {
+    content: '';
+    position: absolute;
+    top: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 6px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 3px;
+  }
+
+  .phone-screen-content {
+    position: absolute;
+    inset: 30px 12px 12px;
+    background: var(--surface);
+    border-radius: 20px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  .phone-logo {
+    font-family: var(--font-display);
+    font-size: 0.6rem;
+    font-weight: 800;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-align: center;
+    padding: 0 1rem;
+  }
+
+  .social-links {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 0.5rem;
+  }
+
+  .social-link {
+    width: 36px;
+    height: 36px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: var(--text-muted);
+    transition: all 0.25s ease;
+  }
+
+  .social-link:hover {
+    background: rgba(232,240,64,0.1);
+    border-color: var(--accent);
+    color: var(--accent);
+    transform: translateY(-2px);
+  }
+
+  /* ─── UMBRACO BADGE ─── */
+  .umbraco-badge {
+    background: var(--bg);
+    border-top: 1px solid var(--border);
+    padding: 2.5rem 3rem;
+    display: flex;
+    justify-content: center;
+  }
+
+  .umbraco-inner {
+    display: inline-flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1.25rem 2.5rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    text-decoration: none;
+    transition: border-color 0.3s ease;
+  }
+
+  .umbraco-inner:hover { border-color: rgba(232,240,64,0.3); }
+
+  .umbraco-inner img {
+    height: 28px;
+    width: auto;
+    filter: brightness(0) invert(1);
+    opacity: 0.8;
+  }
+
+  .umbraco-text {
+    font-family: var(--font-display);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  .gold-badge {
+    padding: 0.25rem 0.6rem;
+    background: rgba(232,200,64,0.1);
+    border: 1px solid rgba(232,200,64,0.3);
+    border-radius: 4px;
+    font-size: 0.6rem;
+    font-family: var(--font-display);
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    color: #e8c840;
+    text-transform: uppercase;
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--bg);
+    border-top: 1px solid var(--border);
+    padding: 3rem;
+  }
+
+  .footer-inner {
+    max-width: 1300px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .footer-left { display: flex; flex-direction: column; gap: 0.5rem; }
+
+  .footer-logo img {
+    height: 28px;
+    filter: brightness(0) invert(1);
+    opacity: 0.6;
+  }
+
+  .footer-contact {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .footer-contact a {
+    color: var(--text-dim);
+    text-decoration: none;
+    font-size: 0.8rem;
+    transition: color 0.2s ease;
+  }
+
+  .footer-contact a:hover { color: var(--text-muted); }
+
+  .footer-links {
+    display: flex;
+    gap: 1.5rem;
+  }
+
+  .footer-links a {
+    color: var(--text-dim);
+    text-decoration: none;
+    font-size: 0.72rem;
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: color 0.2s ease;
+  }
+
+  .footer-links a:hover { color: var(--text-muted); }
+
+  .footer-copy {
+    font-size: 0.72rem;
+    color: var(--text-dim);
+    text-align: right;
+    line-height: 1.6;
+  }
+
+  .green-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.68rem;
+    color: #4a9e6a;
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: 0.05em;
+  }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fade-left {
+    from { opacity: 0; transform: translateX(40px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out);
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 1024px) {
+    .services-grid { grid-template-columns: repeat(2, 1fr); }
+    .hero-inner { grid-template-columns: 1fr; }
+    .hero-visual { display: none; }
+    .connect-inner { grid-template-columns: 1fr; }
+    .connect-visual { display: none; }
+  }
+
+  @media (max-width: 768px) {
+    header { padding: 0 1.5rem; }
+    nav { display: none; }
+    .hero { padding: 100px 1.5rem 60px; }
+    section { padding: 4rem 1.5rem; }
+    .pillars-grid { grid-template-columns: 1fr; }
+    .work-grid { grid-template-columns: 1fr; }
+    .news-grid { grid-template-columns: 1fr; }
+    .testimonial-card { grid-template-columns: 1fr; padding: 2rem; }
+    .testimonial-author { text-align: left; }
+    footer { padding: 2rem 1.5rem; }
+    .footer-inner { flex-direction: column; gap: 1.5rem; }
+    .footer-copy { text-align: left; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ─── HEADER ─── -->
+<header id="header">
+  <a href="https://www.multimediasolutions.com/" class="logo">
+    <img src="https://www.multimediasolutions.com/media/uddb4n25/multimediasolutionslogo.png" alt="Multimedia Solutions" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+    <span style="display:none; font-family:'Syne',sans-serif; font-size:1rem; font-weight:800; color:#f0f0f5; letter-spacing:-0.02em;">MULTIMEDIA<span style="color:#e8f040;"> SOLUTIONS</span></span>
+  </a>
+  <nav>
+    <a href="https://www.multimediasolutions.com/about-us">About Us</a>
+    <a href="https://www.multimediasolutions.com/services">Services</a>
+    <a href="https://www.multimediasolutions.com/clients">Clients</a>
+    <a href="https://www.multimediasolutions.com/work">Work</a>
+    <a href="https://www.multimediasolutions.com/awards">Recognition</a>
+    <a href="https://www.multimediasolutions.com/press">Press</a>
+    <a href="https://www.multimediasolutions.com/contact-us">Contact</a>
+  </nav>
+  <div class="header-cta">
+    <a href="https://multimediasolutions.atlassian.net/" class="btn-outline">Client Login</a>
+    <a href="https://outlook.office.com/book/Meetings1@multimediasolutions.com/?ismsaljsauthenabled" class="btn-primary">Schedule Consultation</a>
+  </div>
+</header>
+
+<!-- ─── HERO ─── -->
+<section class="hero" style="max-width:none; padding-left:3rem; padding-right:3rem;">
+  <div class="hero-orb1"></div>
+  <div class="hero-orb2"></div>
+  <div class="hero-inner">
+    <div class="hero-content">
+      <div class="hero-badge">Celebrating 33 Years of Digital Excellence</div>
+      <h1 class="hero-title">
+        <span class="year-badge">33 YRS</span>
+        Creating Digital<br>Strategies That<br><em>Drive Results</em>
+      </h1>
+      <p class="hero-sub">
+        We at Multimedia Solutions are enablers — empowering our clients to gain competitive advantages through innovative website design, development, and digital marketing.
+      </p>
+      <div class="hero-actions">
+        <a href="https://outlook.office.com/book/Meetings1@multimediasolutions.com/?ismsaljsauthenabled" class="hero-cta">
+          Schedule Consultation
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+        <a href="https://www.multimediasolutions.com/work" class="hero-link">
+          View Our Work
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <path d="M2.5 7H11.5M11.5 7L8 3.5M11.5 7L8 10.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-stats-grid">
+        <div class="stat-card">
+          <div class="stat-num">33<span>+</span></div>
+          <div class="stat-label">Years in Business</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">NJ<span>/</span>NY</div>
+          <div class="stat-label">Serving the Tri-State</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">8<span>+</span></div>
+          <div class="stat-label">Core Services</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num"><span>⭐</span>Gold</div>
+          <div class="stat-label">Umbraco Partner</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── TICKER ─── -->
+<div class="ticker-wrap">
+  <div class="ticker-track" id="ticker">
+    <div class="ticker-item"><span class="ticker-dot"></span> <strong>Website Design &amp; Development</strong></div>
+    <div class="ticker-item"><span class="ticker-dot"></span> Mobile Apps</div>
+    <div class="ticker-item"><span class="ticker-dot"></span> <strong>Digital Marketing</strong></div>
+    <div class="ticker-item"><span class="ticker-dot"></span> Social Media Marketing</div>
+    <div class="ticker-item"><span class="ticker-dot"></span> <strong>Search Engine Marketing</strong></div>
+    <div class="ticker-item"><span class="ticker-dot"></span> Content Marketing &amp; Syndication</div>
+    <div class="ticker-item"><span class="ticker-dot"></span> <strong>Artificial Intelligence Consulting</strong></div>
+    <div class="ticker-item"><span class="ticker-dot"></span> Enterprise Application Development</div>
+    <div class="ticker-item"><span class="ticker-dot"></span> <strong>Brand Identity &amp; Creative Services</strong></div>
+    <div class="ticker-item"><span class="ticker-dot"></span> Digital Experience Platform</div>
+    <!-- duplicate for seamless loop -->
+    <div class="ticker-item"><span class="ticker-dot"></span> <strong>Website Design &amp; Development</strong></div>
+    <div class="ticker-item"><span class="ticker-dot"></span> Mobile Apps</div>
+    <div class="ticker-item"><span class="ticker-dot"></span> <strong>Digital Marketing</strong></div>
+    <div class="ticker-item"><span class="ticker-dot"></span> Social Media Marketing</div>
+    <div class="ticker-item"><span class="ticker-dot"></span> <strong>Search Engine Marketing</strong></div>
+    <div class="ticker-item"><span class="ticker-dot"></span> Content Marketing &amp; Syndication</div>
+    <div class="ticker-item"><span class="ticker-dot"></span> <strong>Artificial Intelligence Consulting</strong></div>
+    <div class="ticker-item"><span class="ticker-dot"></span> Enterprise Application Development</div>
+    <div class="ticker-item"><span class="ticker-dot"></span> <strong>Brand Identity &amp; Creative Services</strong></div>
+    <div class="ticker-item"><span class="ticker-dot"></span> Digital Experience Platform</div>
+  </div>
+</div>
+
+<!-- ─── SERVICES ─── -->
+<section class="services-section reveal">
+  <div class="services-header">
+    <div>
+      <div class="section-label">What We Do</div>
+      <h2 class="section-title">Enablers of Your<br>Competitive Advantage</h2>
+    </div>
+    <p>Empowering our clients to gain competitive advantages in the digital landscape through cutting-edge services tailored to your unique goals.</p>
+  </div>
+  <div class="services-grid">
+    <a href="https://www.multimediasolutions.com/services/website-design-and-development/user-experience-ux" class="service-card">
+      <div class="service-icon">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="2" y="3" width="16" height="11" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M7 17H13M10 14V17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </div>
+      <div class="service-name">Website Design &amp; Development</div>
+      <div class="service-arrow">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 13L13 3M13 3H7M13 3V9" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+    </a>
+    <a href="https://www.multimediasolutions.com/services/mobile-apps/app-design-development" class="service-card">
+      <div class="service-icon">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="5" y="2" width="10" height="16" rx="2" stroke="currentColor" stroke-width="1.5"/><circle cx="10" cy="15.5" r="0.75" fill="currentColor"/></svg>
+      </div>
+      <div class="service-name">Mobile Apps</div>
+      <div class="service-arrow">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 13L13 3M13 3H7M13 3V9" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+    </a>
+    <a href="https://www.multimediasolutions.com/services/digital-marketing/strategy" class="service-card">
+      <div class="service-icon">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M2 14L7 9L11 13L18 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M14 6H18V10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="service-name">Digital Marketing</div>
+      <div class="service-arrow">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 13L13 3M13 3H7M13 3V9" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+    </a>
+    <a href="https://www.multimediasolutions.com/services/social-media-marketing/strategy" class="service-card">
+      <div class="service-icon">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="14" cy="4" r="2" stroke="currentColor" stroke-width="1.5"/><circle cx="4" cy="10" r="2" stroke="currentColor" stroke-width="1.5"/><circle cx="14" cy="16" r="2" stroke="currentColor" stroke-width="1.5"/><path d="M6 9L12 5M6 11L12 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </div>
+      <div class="service-name">Social Media Marketing</div>
+      <div class="service-arrow">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 13L13 3M13 3H7M13 3V9" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+    </a>
+    <a href="https://www.multimediasolutions.com/services/search-engine-marketing/paid-search" class="service-card">
+      <div class="service-icon">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="9" cy="9" r="5.5" stroke="currentColor" stroke-width="1.5"/><path d="M13 13L17 17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </div>
+      <div class="service-name">Search Engine Marketing</div>
+      <div class="service-arrow">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 13L13 3M13 3H7M13 3V9" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+    </a>
+    <a href="https://www.multimediasolutions.com/services/content-marketing-syndication/content-marketing" class="service-card">
+      <div class="service-icon">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 6H16M4 10H12M4 14H9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </div>
+      <div class="service-name">Content Marketing &amp; Syndication</div>
+      <div class="service-arrow">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 13L13 3M13 3H7M13 3V9" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+    </a>
+    <a href="https://www.multimediasolutions.com/services/enterprise-integration-and-emerging-technology/enterprise-integration" class="service-card">
+      <div class="service-icon">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="2" y="13" width="4" height="4" rx="1" stroke="currentColor" stroke-width="1.5"/><rect x="8" y="3" width="4" height="4" rx="1" stroke="currentColor" stroke-width="1.5"/><rect x="14" y="13" width="4" height="4" rx="1" stroke="currentColor" stroke-width="1.5"/><path d="M4 13V10H10V7M10 7H16V10H16V13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </div>
+      <div class="service-name">Enterprise Application Development</div>
+      <div class="service-arrow">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 13L13 3M13 3H7M13 3V9" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+    </a>
+    <a href="https://www.multimediasolutions.com/services/artificial-intelligence/artificial-intelligence-consulting" class="service-card">
+      <div class="service-icon">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="3" stroke="currentColor" stroke-width="1.5"/><path d="M10 2V5M10 15V18M2 10H5M15 10H18M4.22 4.22L6.34 6.34M13.66 13.66L15.78 15.78M4.22 15.78L6.34 13.66M13.66 6.34L15.78 4.22" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </div>
+      <div class="service-name">Artificial Intelligence Consulting</div>
+      <div class="service-arrow">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 13L13 3M13 3H7M13 3V9" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- ─── PILLARS ─── -->
+<section class="pillars-section reveal">
+  <div class="section-label">Our Identity</div>
+  <h2 class="section-title">Renowned in the Tri-State<br>for Innovation &amp; Creativity</h2>
+  <div class="pillars-grid">
+    <div class="pillar-card">
+      <div class="pillar-title">We Are</div>
+      <div class="pillar-keyword creative">CREATIVE</div>
+      <p class="pillar-desc">Renowned in the Tri-State for being innovative and creative in the areas of aesthetics, interactivity, user experience and functionality.</p>
+      <a href="https://www.multimediasolutions.com/work/website-projects" class="pillar-link">
+        See Our Work
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7H11.5M11.5 7L8 3.5M11.5 7L8 10.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+    <div class="pillar-card">
+      <div class="pillar-title">We Are</div>
+      <div class="pillar-keyword versatile">VERSATILE</div>
+      <p class="pillar-desc">Technology agnostic and tenacious in developing the right solutions for our clients — whatever the platform, whatever the challenge.</p>
+      <a href="https://www.multimediasolutions.com/services/enterprise-integration-and-emerging-technology/web-applications" class="pillar-link">
+        Learn More
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7H11.5M11.5 7L8 3.5M11.5 7L8 10.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+    <div class="pillar-card">
+      <div class="pillar-title">We Are</div>
+      <div class="pillar-keyword grateful">GRATEFUL</div>
+      <p class="pillar-desc">To have a roster of enthusiastically satisfied clients and honored to receive their gracious testimonials — our greatest measure of success.</p>
+      <a href="https://www.multimediasolutions.com/testimonials" class="pillar-link">
+        Read Testimonials
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7H11.5M11.5 7L8 3.5M11.5 7L8 10.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ─── TESTIMONIAL ─── -->
+<div class="testimonial-section reveal">
+  <div class="testimonial-card">
+    <div>
+      <p class="testimonial-quote">
+        From website strategy to social media management, MSC has become our true partner. The responsiveness, communication, and consistent advisement has helped us develop and grow our digital assets and environment beyond our expectations. The team has always delivered — even under those tough deadlines.
+      </p>
+    </div>
+    <div class="testimonial-author">
+      <div class="testimonial-name">Rebecca Leonardis</div>
+      <div class="testimonial-role">SVP Marketing &amp; Corporate Communications</div>
+      <div class="testimonial-company">STOBG</div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── RECENT WORK ─── -->
+<section class="work-section reveal">
+  <div class="work-header">
+    <div>
+      <div class="section-label">Portfolio</div>
+      <h2 class="section-title">Our Recent Work</h2>
+    </div>
+    <a href="https://www.multimediasolutions.com/work" class="view-all">
+      View All Work
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7H11.5M11.5 7L8 3.5M11.5 7L8 10.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+  </div>
+  <div class="work-grid">
+    <a href="https://www.multimediasolutions.com/press/2024/july/rc-andersen-website-redesign-construction" class="work-card reveal reveal-delay-1">
+      <div class="work-card-img">
+        <img src="https://www.multimediasolutions.com/media/r5wlosif/rc-anderson-pr-release-graphic.gif" alt="RC Andersen" loading="lazy">
+      </div>
+      <div class="work-card-body">
+        <div class="work-tag">Website Design / Development</div>
+        <div class="work-title">RC Andersen</div>
+        <div class="work-card-link">
+          Learn More
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H5M10 2V7" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+      </div>
+    </a>
+    <a href="https://www.multimediasolutions.com/press/2024/november/uhy-website-redesign-and-rebrand" class="work-card reveal reveal-delay-2">
+      <div class="work-card-img">
+        <img src="https://www.multimediasolutions.com/media/tg3p1zc5/uhy-website-redesign-accounting.gif" alt="UHY LLP" loading="lazy">
+      </div>
+      <div class="work-card-body">
+        <div class="work-tag">Website Design / Development</div>
+        <div class="work-title">UHY LLP</div>
+        <div class="work-card-link">
+          Learn More
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H5M10 2V7" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+      </div>
+    </a>
+    <a href="https://www.multimediasolutions.com/press/2025/april/multimedia-solutions-launches-second-generation-website-design-for-columbia-bank" class="work-card reveal reveal-delay-3">
+      <div class="work-card-img">
+        <img src="https://www.multimediasolutions.com/media/uzihks55/columbia-bank-website-design.gif" alt="Columbia Bank" loading="lazy">
+      </div>
+      <div class="work-card-body">
+        <div class="work-tag">Website Design / Development</div>
+        <div class="work-title">Columbia Bank</div>
+        <div class="work-card-link">
+          Learn More
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H5M10 2V7" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- ─── NEWS ─── -->
+<section class="news-section reveal">
+  <div class="work-header">
+    <div>
+      <div class="section-label">Latest</div>
+      <h2 class="section-title">News &amp; Announcements</h2>
+    </div>
+    <a href="https://www.multimediasolutions.com/press" class="view-all">
+      View All News
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7H11.5M11.5 7L8 3.5M11.5 7L8 10.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+  </div>
+  <div class="news-grid">
+    <a href="https://www.multimediasolutions.com/press/2025/february/multimedia-solutions-empowers-businesses-with-advanced-personalization-strategies" class="news-card reveal reveal-delay-1">
+      <div class="news-card-img">
+        <img src="https://www.multimediasolutions.com/media/mrudjcyh/personalization-stategy-dxp-marketing.png" alt="Personalization Strategy" loading="lazy">
+      </div>
+      <div class="news-card-body">
+        <div class="news-tag">Services Expansion</div>
+        <div class="news-title">Personalization Strategy</div>
+      </div>
+    </a>
+    <a href="https://www.multimediasolutions.com/press/2025/april/multimedia-solutions-earns-high-marks-in-client-satisfaction-survey" class="news-card reveal reveal-delay-2">
+      <div class="news-card-img">
+        <img src="https://www.multimediasolutions.com/media/kyenuh4h/multimedia-solutions-client-satisfaction-survey.png" alt="Client Satisfaction Survey" loading="lazy">
+      </div>
+      <div class="news-card-body">
+        <div class="news-tag">Partner Feedback</div>
+        <div class="news-title">Client Satisfaction Survey</div>
+      </div>
+    </a>
+    <a href="https://www.multimediasolutions.com/press/2025/august/larken-associates-taps-multimedia-solutions-for-third-website-redesign" class="news-card reveal reveal-delay-3">
+      <div class="news-card-img">
+        <img src="https://www.multimediasolutions.com/media/rmabr5d3/larken-real-estate-website-design.png" alt="Larken Associates" loading="lazy">
+      </div>
+      <div class="news-card-body">
+        <div class="news-tag">New Project Announcement</div>
+        <div class="news-title">Larken Associates</div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- ─── CONNECT ─── -->
+<div class="connect-wrap reveal">
+  <div class="connect-inner">
+    <div class="connect-text">
+      <div class="section-label">Stay Connected</div>
+      <h2 class="section-title">Follow Us on<br>Social Media</h2>
+      <p>Keep up with the latest news in business technologies and digital marketing, plus highlights from our company and our prestigious roster of clients.</p>
+      <div class="social-links">
+        <a href="#" class="social-link" aria-label="LinkedIn">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6V12M4 4V4.01M8 12V9C8 7.9 8.9 7 10 7C11.1 7 12 7.9 12 9V12M8 6V12" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <a href="#" class="social-link" aria-label="Twitter/X">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2.5 3L7 8.5L2 13H3.5L7.7 9.4L11.5 13H14.5L9.8 7.2L14.5 3H13L9.1 6.3L5.5 3H2.5Z" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/></svg>
+        </a>
+        <a href="#" class="social-link" aria-label="Facebook">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M9.5 5.5H11V3.5H9.5C8.12 3.5 7 4.62 7 6V7H5.5V9H7V13H9V9H10.5L11 7H9V6C9 5.72 9.22 5.5 9.5 5.5Z" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/></svg>
+        </a>
+        <a href="#" class="social-link" aria-label="Instagram">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="3" y="3" width="10" height="10" rx="3" stroke="currentColor" stroke-width="1.3"/><circle cx="8" cy="8" r="2.5" stroke="currentColor" stroke-width="1.3"/><circle cx="11.5" cy="4.5" r="0.5" fill="currentColor"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="connect-visual">
+      <div class="phone-mockup">
+        <div class="phone-screen-content">
+          <div class="phone-logo">Multimedia<br>Solutions</div>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#e8f040" stroke-width="1.5"/><path d="M12 8V12L14 14" stroke="#e8f040" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── UMBRACO ─── -->
+<div class="umbraco-badge">
+  <a href="https://www.multimediasolutions.com/services/website-design-and-development/umbraco-gold-partner" class="umbraco-inner">
+    <img src="https://www.multimediasolutions.com/media/upnlccrq/umbraco-gold-partner-website-development.png" alt="Umbraco" onerror="this.style.display='none'">
+    <span class="umbraco-text">Multimedia Solutions Recognized as an Umbraco Partner</span>
+    <span class="gold-badge">Gold</span>
+  </a>
+</div>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-left">
+      <a href="https://www.multimediasolutions.com/" class="footer-logo">
+        <img src="https://www.multimediasolutions.com/media/uddb4n25/multimediasolutionslogo.png" alt="Multimedia Solutions" onerror="this.style.display='none'">
+      </a>
+      <div class="footer-contact">
+        <a href="tel:+12019141472">201.914.1472</a>
+        <a href="mailto:contact@multimediasolutions.com">contact@multimediasolutions.com</a>
+      </div>
+      <div class="footer-links">
+        <a href="https://www.multimediasolutions.com/about-us/careers">Careers</a>
+        <a href="https://www.multimediasolutions.com/privacy-policy">Privacy Policy</a>
+        <a href="https://www.multimediasolutions.com/site-map">Site Map</a>
+      </div>
+    </div>
+    <div class="footer-copy">
+      <div class="green-badge">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5" stroke="#4a9e6a" stroke-width="1"/><path d="M4 6C4 4.9 4.9 4 6 4C7.1 4 8 4.9 8 6" stroke="#4a9e6a" stroke-width="1" stroke-linecap="round"/></svg>
+        Going Digital is Going Green
+      </div>
+      <div style="margin-top:0.3rem;">Multimedia Solutions is a Green Conscious Company.</div>
+      <div>Copyright ©2026 Multimedia Solutions Corp. All Rights Reserved.</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Header scroll
+  const header = document.getElementById('header');
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', window.scrollY > 20);
+  }, { passive: true });
+
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
